@@ -1,0 +1,57 @@
+<main class="form-signup w-100 m-auto text-center">
+        <div class="row">
+            <div id="container-html" class="col-8 offset-2">
+                <div class="card">
+                    <div class="card-body ">
+                  <form enctype="multipart/form-data" action="/signup" method="POST" >
+                   <img class="mb-4 mx-auto img-center " src="assets/img/icons8-hastag-128(-xxxhdpi).png" alt="" width="128" height="128">
+                    <h4 class="h4 mb-3 fw-normal">Ingrese sus datos</h4>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre" id="name" name="name" value="" required>
+                            <label for="name">Nombres</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Apellido" id="lastname" name="lastname" value="" required>
+                            <label for="lastname">Apellidos</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Telefono" id="phone" name="phone" value="" data-inputmask="'mask': (999)-999-9999" required>
+                            <label for="phone">Telefono</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="imagen">Imagen de perfil</span>
+                            <input type="file" class="form-control form-control-lg" placeholder="imagen" name="image" value="" required />
+                        </div>
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Usuario" id="user" name="user" value="" required>
+                            <label for="user">Usuario</label>
+                        </div>
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Correo" id="email" name="email" value="" required>
+                            <label for="email">Correo</label>
+                        </div>
+                          <div class="form-floating mb-3">
+                            <input type="password" class="form-control" placeholder="Contraceña" id="password" name="password" value="" required>
+                            <label for="password">Contraceña</label>
+                        </div>
+                         <div class="form-floating mb-3">
+                            <input type="password" class="form-control" placeholder="Confirmar Contraceña" id="confirmpassword" name="confirmpassword" value="" required>
+                            <label for="confirmpassword">Confirmar Contraceña</label>
+                        </div>
+                        <div>
+            
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-secondary me-3 mb-3" >Crear</button>
+                       </div>
+                    </form>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <br>
+                        <p>¿Ya tienes una cuenta? <a href="/login"  class="card-link" >Ingresar</a></p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,57 @@
+<main>
+<section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Invitados</h1>
+            </div>
+        </div>
+     </section>
+    <div class="row">
+        <div id="container-html" class="col-8 offset-2">
+            <div class="mt-3">
+                <div class="card p-4">              
+                    <table class=" table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</td>
+                                    <th>Usuario</td>
+                                    <th>Respuesta</td>
+                                    <th>Desinvitar</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {{#each guestsUsers as |guests|}}
+                                {{#each guests.detailsevents as |details|}}
+                                <tr>
+                                    <td>{{guests.name}}</td>
+                                    <td>{{guests.lastname}}</td>
+                                    <td>{{guests.usuario}}</td>
+                                    <td>{{#if (equals details.dataValues.response "1") }}
+                                        Asistirá
+                                        {{else if (equals details.dataValues.response "2")}}
+                                        Tal vez asista
+                                        {{else if (equals details.dataValues.response "3")}}
+                                        No asistirá
+                                        {{else}}Sin respuesta
+                                        {{/if}}</td>
+                                    <td>
+
+                                        <form method="POST" id="form-delete-guests" action="/drop-guests" class="form-inline">
+                                            <input type="hidden" name="deventId" value= "{{details.id}}" />
+                                            <input type="hidden" name="eventId" value= "{{details.eventId }}" />
+                                            <a type="submit"  class="btn btn-sm btn-outline-danger me-3 delete-guests">Eliminar</a> 
+                                         </form>  
+                                    </td>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+         </div>
+    </div>
+</main>

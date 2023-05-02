@@ -1,0 +1,564 @@
+<main class="d-flex flex-nowrap">
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 1090px;">
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Amigos</h1>
+        <p class="lead text-muted">Una red hecha para ti</p>
+        <p>
+          <a href="/foundfriend" class="btn btn-outline-primary my-2">Agregar amigo</a>         
+        </p>
+      </div>
+    </div>
+  </section>
+
+<div class="row">
+  <div id="container-html" class="col-8 offset-2">
+  <div class="mt-3">
+    {{#if hasPublicacion}}
+  
+  {{#each publicacion as |publicaciones|}}
+  {{#each ../friends as |friend|}}
+  {{#if (equals friend.usuarioId ../../userd.id)}}
+  {{#if (equals friend.estado "1")}}
+  {{#if (equals publicaciones.usuarioId friend.FriendId)}}
+   <div class="card mb-4" >
+    <div class="card-body">
+     <div class="head">
+      <img src="{{findImageProfile publicaciones.usuarioId ../../users}}">
+     <div class="mb-2">
+    <p>{{findUser publicaciones.usuarioId ../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{publicaciones.date}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{publicaciones.description}}</p>
+  </div>
+  {{#if (equals publicaciones.img "")}}
+  {{else}}
+  <img src="{{publicaciones.img}}" class="card-img-bottom" alt="...">
+  {{/if}}
+  <div class="card-footer">
+   
+      <a class="btn  btn-outline-primary  float-end collapsed" href="#comentar" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="comentar">
+       Comentar
+      </a>
+  </div>
+ 
+ 
+<div class="collapse" id="comentar" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-comentaries">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="coment"></textarea>
+    <input type="hidden" name="publiId" value= "{{publicaciones.id}}" />
+    <input type="hidden" name="userId" value= "{{../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+<hr>
+{{#each publicaciones.comentarios as |coment|}}
+<div class="card m-3">
+  <div class="card-body">    
+  <div class="head">
+       <img src="{{findImageProfile coment.dataValues.usuarioId ../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser coment.dataValues.usuarioId ../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{coment.dataValues.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{coment.dataValues.comentarie}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{coment.dataValues.id}}coment" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{coment.dataValues.id}}coment">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{coment.dataValues.id}}coment" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="comentarieId" value= "{{coment.dataValues.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+
+{{#each coment.repuestas as |reply|}}
+<div class="card m-3">
+  <div class="card-body">
+     
+  <div class="head">
+       <img src="{{findImageProfile reply.usuarioId ../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser reply.usuarioId ../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{reply.dataValues.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{reply.dataValues.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{reply.dataValues.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{coment.dataValues.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{reply.dataValues.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{reply.dataValues.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+
+{{#each ../../../../repuesta as |replys|}}
+{{#if (equals replys.repuestaId reply.dataValues.id)}}
+<div class="card m-3">
+  <div class="card-body">
+ <div class="head">
+       <img src="{{findImageProfile replys.usuarioId ../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys.usuarioId ../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{replys.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+{{#each ../../../../../repuesta as |replys2|}}
+{{#if (equals replys2.repuestaId replys.id)}}
+<div class="card m-3">
+  <div class="card-body">
+   <div class="head">
+       <img src="{{findImageProfile replys2.usuarioId ../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys2.usuarioId ../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys2.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys2.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys2.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys2.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys2.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="userId" value= "{{../../../../../../userd.id}}" />
+    <input type="hidden" name="replyId" value= "{{replys2.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+{{#each ../../../../../../repuesta as |replys3|}}
+{{#if (equals replys3.repuestaId replys2.id)}}
+<div class="card m-3">
+  <div class="card-body">
+ <div class="head">
+       <img src="{{findImageProfile replys3.usuarioId ../../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys3.usuarioId ../../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys3.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys3.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys3.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys3.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys3.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{replys3.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+{{#each ../../../../../../../repuesta as |replys4|}}
+{{#if (equals replys4.repuestaId replys3.id)}}
+<div class="card m-3">
+  <div class="card-body">
+ <div class="head">
+       <img src="{{findImageProfile replys4.usuarioId ../../../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys4.usuarioId ../../../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys4.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys4.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys4.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys4.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys4.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{replys4.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+{{#each ../../../../../../../../repuesta as |replys5|}}
+{{#if (equals replys5.repuestaId replys4.id)}}
+<div class="card m-3">
+  <div class="card-body">
+ <div class="head">
+       <img src="{{findImageProfile replys5.usuarioId ../../../../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys5.usuarioId ../../../../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys5.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys5.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys5.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys5.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys5.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{replys5.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../../../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+{{#each ../../../../../../../../../repuesta as |replys6|}}
+{{#if (equals replys6.repuestaId replys5.id)}}
+<div class="card m-3">
+  <div class="card-body">
+ <div class="head">
+       <img src="{{findImageProfile replys6.usuarioId ../../../../../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys6.usuarioId ../../../../../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys6.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys6.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys6.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys6.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys6.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{replys6.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../../../../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+{{#each ../../../../../../../../../../repuesta as |replys7|}}
+{{#if (equals replys7.repuestaId replys6.id)}}
+<div class="card m-3">
+  <div class="card-body">
+   <div class="head">
+       <img src="{{findImageProfile replys7.usuarioId ../../../../../../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys7.usuarioId ../../../../../../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys7.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys7.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys7.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys7.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys7.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{replys7.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../../../../../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+{{#each ../../../../../../../../../../../repuesta as |replys8|}}
+{{#if (equals replys8.repuestaId replys7.id)}}
+<div class="card m-3">
+  <div class="card-body">
+  <div class="head">
+       <img src="{{findImageProfile replys8.usuarioId ../../../../../../../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys8.usuarioId ../../../../../../../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys8.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys8.reply}}</p>
+    <div class="mb-3">
+    <p>
+      <a class="btn btn-outline-success float-end collapsed" href="#reponder{{replys8.id}}" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reponder{{replys8.id}}">
+        Responder
+      </a>
+    </p> 
+  </div>
+</div>
+
+<div class="collapse " id="reponder{{replys8.id}}" style="">
+  <div class="card card-body">
+   <form method="post" action="/friends-replys">
+    <div class="mb-3">
+    <label for="Publicacion">Escriba lo que quiere comentar</label>
+    <textarea class="form-control"  rows="3" name="reply"></textarea>
+    <input type="hidden" name="replyId" value= "{{replys8.id}}" />
+    <input type="hidden" name="userId" value= "{{../../../../../../../../../../../../userd.id}}" />
+  </div>  
+<button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" >Publicar</button>
+</form>
+</div>
+</div>
+
+{{#each ../../../../../../../../../../../../repuesta as |replys9|}}
+{{#if (equals replys9.repuestaId replys8.id)}}
+<div class="card m-3">
+  <div class="card-body">
+   <div class="head">
+       <img src="{{findImageProfile replys9.usuarioId ../../../../../../../../../../../../../users}}">
+     <div class="mb-2">
+    <p>{{findUser replys9.usuarioId ../../../../../../../../../../../../../users}}
+    </p>
+    </div>
+  </div>
+  <small class="text-muted" >{{replys9.createdAt}}</small>
+  <br>
+  <br>
+    <p class="card-text">{{replys9.reply}}</p>
+   
+</div>
+
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/if}}
+
+{{/each}}
+</div>
+
+{{/each}}
+</div>
+{{/each}}
+</div>
+{{/if}}
+{{/if}}
+{{/if}}
+{{/each}}
+{{/each}}
+<div> <br> <br> </div>
+
+
+{{else}}
+<h1>No hay mas publicaciones</h1>
+{{/if}}
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 350px;">
+  <br> <br> <br><br><br><br>
+    <div href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+      <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-5 fw-semibold">Amigos</span>
+    </div>
+    <div class="list-group list-group-flush border-bottom scrollarea">
+      {{#each friends as |friend|}}
+      {{#if (equals friend.usuarioId ../userd.id)}}
+      {{#if (equals friend.estado "1")}}
+      {{#each ../users as |user|}}
+      {{#if (equals user.id  friend.FriendId)}}
+      <div  class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+        <div class="head2">
+          <div class="d-flex w-80 ">
+          <img src="{{user.img}}" >
+         <p class="mb-1"> {{user.usuario}}</p>
+        <div class="row">
+        <div class="col-9">
+        <div class="col-10  mb-1 small" style="margin-left: 15px;"><strong>Nombre: </strong>{{user.name}}</div>
+        <div class="col-10 mb-1 small" style="margin-left: 10px;" ><strong>Apellido: </strong>{{user.lastname}}</div>
+        </div>
+        <div class="col-3">
+         <form method="POST" id="form-delete-friend" action="/deletefriend" class="form-inline">
+    <input type="hidden" name="friendId" value= "{{friend.id}}" />
+    <input type="hidden" name="userId" value= "{{../../userd.id}}" />
+     <input type="hidden" name="frId" value= "{{friend.FriendId}}" />
+    <button type="submit"  class="btn btn-sm btn-outline-danger delete-friend">Eliminar</button> 
+      </form>
+       </div>
+      </div>
+    </div>
+    </div>
+    </div>
+      {{/if}}
+      {{/each}}
+      {{/if}}
+      {{/if}}
+      {{/each}}
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</main>

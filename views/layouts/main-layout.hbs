@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social network</title>
+   <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    {{#if loginActive}} 
+    <link rel="stylesheet" href="/assets/css/login.css">
+    {{/if}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+</head>
+<body>
+{{#if isAuthenticated}}
+
+    <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+          <li><a href="/friends" class="nav-link px-2 link-dark">Amigos</a></li>
+          <li><a href="/notification" class="nav-link px-2 link-dark position-relative"><i class='bx bx-bell icon'>
+                              
+                                <span class="position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger" id="nnSpan">
+                                   {{notofications}}
+                                </span>
+                                
+                            </i>
+                            <span class="textDesign nav-text">Centro de notificaciones</span> </a>
+     </li>
+     <li> &nbsp;  &nbsp;</li>
+          <li><a href="/events" class="nav-link px-2 link-dark">Eventos</a></li>
+        </ul>
+
+            <img src="{{userd.img}}" class="user-pic" onclick="toggleMenu()">
+            <div class="sub-menu-wrap" id="subMenu">
+              <div class="sub-menu">
+                <div class="user-info">
+                  <img src="{{userd.img}}" class="user-pic-info">
+                  <h3 class="text-center">{{userd.usuario}}</h3>
+                </div>
+                <hr>
+                <a href="/logout" class="sub-menu-link">
+                  <img src="/assets/img/logout.png" >
+                  <p class="centrar">Cerrar seccion</p>
+                  <span>></span>
+
+                </a>
+
+              </div>
+            </div>
+          
+          
+      </div>
+    </div>
+  </header>
+  {{/if}}
+<main >
+<div class="row">
+  <div id="container-html" class="col-8 offset-2">
+        {{#if hasErrorMessages}}
+      <div><br><br></div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <ul>
+        {{#each errorMessages}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+      {{/if}}
+  </div>
+</div>
+
+{{{body}}}
+
+</main>
+
+
+
+</body>
+<script src="/assets/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="/assets/js/app/site.js"></script>
+<script src="/assets/js/app/index.js"></script>
+<script>
+  let subMenu = document.getElementById("subMenu");
+  function toggleMenu(){
+    subMenu.classList.toggle("open-menu");
+  }
+</script>
+<script>
+function ivited() {
+  alert("No hay amigos invitados");
+}
+</script>
+
+</html>

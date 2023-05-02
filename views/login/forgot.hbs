@@ -1,0 +1,31 @@
+<main class="form-signin w-100 m-auto text-center">
+<div class="card">
+  <div class="card-body">
+  <form class="p-3" action="/forgot" method="POST" >
+     <img class="mb-4 mx-auto img-center " src="assets/img/icons8-hastag-128(-xxxhdpi).png" alt="" width="128" height="128">
+    <h6 class="h6 mb-3 fw-normal">¿Tienes problemas para entrar?</h6>
+    <p style="color:grey;">Ingresa tu usuario y te enviaremos una nuecva contraceña para que vuelvas a entrar en tu cuenta.</p>
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Nombre" name="user" required>
+      <label for="floatingInput">Usuario</label>
+    </div>
+
+     <button class="w-100 btn btn-lg btn-outline-secondary" type="submit">Restablecer</button>
+  </form>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-body">
+    <br>
+   <p>¿No tienes una cuenta? <a href="/signup"  class="card-link" >Registrate</a></p>
+  </div>
+</div>
+  <div class="card mt-3">
+                    <div class="card-body">
+                        <br>
+                        <p>¿Ya tienes una cuenta? <a href="/login"  class="card-link" >Ingresar</a></p>
+                    </div>
+            </div>
+</main>

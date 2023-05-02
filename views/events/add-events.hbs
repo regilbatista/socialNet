@@ -1,0 +1,34 @@
+<div class="container mt-8">
+        <div class="row">
+            <div id="container-html" class="col-8 offset-2">
+            <div class="mt-5">
+            </div>
+                <div class="card">
+                    <div class="card-header bg-secondary bg-gradient text-light mb-3" >
+                        <h4 class="text-center"> Creacion de </h4>
+                    </div>
+                   
+                    <div class="card-body ">
+                  <form  enctype="multipart/form-data" method="POST" action="/add-events">
+                        <div class="mb-3"
+                            <label for="name" class="form-label">Nombre del evento:</label>
+                            <input type="text" class="form-control" placeholder="Ejemplo: Fiesta de cumpleaños de..." name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Fecha del evento:</label>
+                            <input type="datetime-local"  min="{{dateTime}}" class="form-control" name="date" required>
+                        </div>
+                        <div class="mb-3"
+                            <label for="name" class="form-label">Lugar:</label>
+                            <input type="text" class="form-control" placeholder="Ejemplo: Mi casa" name="place" required>
+                        </div>
+                        <div>   
+                         <input type="hidden" name="userId" value= "{{userd.id}}" />                        
+                         <button type="submit" class="btn btn-outline-secondary float-end me-3 mb-3" > Crear </button>
+                         <a href="/events" type="button" class="btn btn-outline-warning float-end me-3 mb-3" >Atras</a>
+                       </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>

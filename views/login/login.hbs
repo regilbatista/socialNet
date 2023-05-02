@@ -1,0 +1,32 @@
+<main class="form-signin w-100 m-auto text-center">
+<div class="card">
+  <div class="card-body">
+  <form class="p-3" action="/login" method="POST" >
+     <img class="mb-4 mx-auto img-center " src="assets/img/icons8-hastag-128(-xxxhdpi).png" alt="" width="128" height="128">
+    <h1 class="h3 mb-3 fw-normal">Ingrese sus datos</h1>
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Nombre" name="user" required>
+      <label for="floatingInput">Usuario</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+      <label for="floatingPassword">Contraceña</label>
+    </div>
+
+     <button class="w-100 btn btn-lg btn-outline-secondary" type="submit">Ingresar</button>
+    
+    <div class="mt-3">
+    <a href="/forgot" class="card-link">¿Olvidaste tu contraceña?</a>
+    </div>
+  </form>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-body">
+    <br>
+   <p>¿No tienes una cuenta? <a href="/signup"  class="card-link" >Registrate</a></p>
+  </div>
+</div>
+</main>
